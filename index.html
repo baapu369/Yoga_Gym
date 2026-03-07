@@ -245,12 +245,20 @@
     // Google Sheets CSV exports wrap fields in double-quotes, causing parseInt to return NaN
     // and fall back to defaults. The regex removes leading/trailing " or ' characters.
     function parseCSVRows(text) {
-        const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        // Normalize line endings
+        const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').map(l => l.trim()).filter(l => l.length > 0);
         const exercises = [];
         for(const line of lines) {
-            const delimiter = line.includes('\t') ? '\t' : ',';
-            const parts = line.split(delimiter).map(p => p.trim().replace(/^["']|["']$/g, ''));
-            if(parts.length < 1) continue;
+            // Detect delimiter: tab (from spreadsheet paste), comma (CSV), or 2+ spaces (space-padded)
+            let parts;
+            if(line.includes('\t')) {
+                parts = line.split('\t').map(p => p.trim().replace(/^["']|["']$/g, ''));
+            } else if(line.includes(',')) {
+                parts = line.split(',').map(p => p.trim().replace(/^["']|["']$/g, ''));
+            } else {
+                parts = line.split(/\s{2,}/).map(p => p.trim().replace(/^["']|["']$/g, ''));
+            }
+            if(parts.length < 2) continue;
             // Skip header rows that look like labels
             if(parts[0].toLowerCase() === 'exercise_name' || parts[0].toLowerCase() === 'exercise' || parts[0].toLowerCase() === 'name') continue;
             const name = parts[0] || '';
