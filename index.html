@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -247,7 +248,8 @@
         const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
         const exercises = [];
         for(const line of lines) {
-            const parts = line.split(',').map(p => p.trim().replace(/^["']|["']$/g, ''));
+            const delimiter = line.includes('\t') ? '\t' : ',';
+            const parts = line.split(delimiter).map(p => p.trim().replace(/^["']|["']$/g, ''));
             if(parts.length < 1) continue;
             // Skip header rows that look like labels
             if(parts[0].toLowerCase() === 'exercise_name' || parts[0].toLowerCase() === 'exercise' || parts[0].toLowerCase() === 'name') continue;
