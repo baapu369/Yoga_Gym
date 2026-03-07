@@ -240,19 +240,27 @@
         document.getElementById('sheets-import-panel').classList.toggle('hidden');
     }
 
+    // FIX 1: Strip surrounding quotes from each field before parsing.
+    // Google Sheets CSV exports wrap fields in double-quotes, causing parseInt to return NaN
+    // and fall back to defaults. The regex removes leading/trailing " or ' characters.
     function parseCSVRows(text) {
         const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
         const exercises = [];
         for(const line of lines) {
-            const parts = line.split(',').map(p => p.trim());
+            const parts = line.split(',').map(p => p.trim().replace(/^["']|["']$/g, ''));
             if(parts.length < 1) continue;
             // Skip header rows that look like labels
             if(parts[0].toLowerCase() === 'exercise_name' || parts[0].toLowerCase() === 'exercise' || parts[0].toLowerCase() === 'name') continue;
             const name = parts[0] || '';
-            const workTime = parseInt(parts[1]) || 30;
-            const restTime = parseInt(parts[2]) || 15;
-            const rounds = parseInt(parts[3]) || 1;
-            exercises.push({ n: name, w: workTime, r: restTime, rd: rounds });
+            const workTime = parseInt(parts[1]);
+            const restTime = parseInt(parts[2]);
+            const rounds = parseInt(parts[3]);
+            exercises.push({
+                n: name,
+                w: isNaN(workTime) ? 30 : workTime,
+                r: isNaN(restTime) ? 15 : restTime,
+                rd: isNaN(rounds) ? 1 : rounds
+            });
         }
         return exercises;
     }
@@ -268,11 +276,13 @@
         alert(`Imported ${exercises.length} exercise(s). Don't forget to save!`);
     }
 
+    // FIX 2: Direct fetch to Google Sheets is blocked by CORS.
+    // Route the request through corsproxy.io to bypass the browser's cross-origin restriction.
     function importFromSheetsURL() {
         const url = document.getElementById('sheets-url').value.trim();
         if(!url) { alert("Please enter a Google Sheets published CSV URL."); return; }
-        // Ensure URL ends with output=csv for published sheets
-        fetch(url)
+        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+        fetch(proxyUrl)
             .then(res => {
                 if(!res.ok) throw new Error('Failed to fetch. Make sure the sheet is published to web as CSV.');
                 return res.text();
