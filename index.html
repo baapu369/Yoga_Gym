@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,49 +9,61 @@
         :root { --bg: #000000; --card: #151515; --accent: #38bdf8; --hiit: #4ade80; --muscle: #a855f7; --gym: #fbbf24; --text: #ffffff; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; display: flex; justify-content: center; min-height: 100vh; }
         .container { background: var(--bg); width: 100%; max-width: 420px; display: flex; flex-direction: column; }
-        
-        /* Main Menu */
         h1 { font-size: 32px; margin: 20px 0; font-weight: 900; }
         .menu-item { background: #1c1c1c; border-radius: 20px; padding: 25px; margin-bottom: 15px; cursor: pointer; border: 1px solid transparent; }
         .menu-item h3 { margin: 0; font-size: 18px; color: white; }
         .menu-item p { margin: 5px 0 0; font-size: 13px; color: #777; }
-
-        /* Settings UI */
-        .header-row { display: flex; align-items: center; margin-bottom: 30px; }
+        .header-row { display: flex; align-items: center; margin-bottom: 20px; padding-top: 10px; }
         .back-arrow { font-size: 24px; cursor: pointer; margin-right: 20px; color: white; text-decoration: none; }
         .screen-title { font-size: 16px; font-weight: 800; text-transform: uppercase; }
         .input-row { margin-bottom: 25px; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
         .input-row label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: white; }
         select, input { background: transparent; border: none; color: #888; width: 100%; font-size: 15px; outline: none; }
-
-        /* Builder Cards */
         .ex-card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 3px solid var(--accent); position: relative; }
         .drag-handle { position: absolute; left: 0; top: 0; bottom: 0; width: 36px; display: flex; align-items: center; justify-content: center; cursor: grab; color: #555; font-size: 18px; user-select: none; touch-action: none; border-radius: 12px 0 0 12px; }
         .drag-handle:active { cursor: grabbing; color: var(--accent); }
         .card-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 10px; }
         .grid-item label { font-size: 12px; color: white; font-weight: 600; }
-
-        /* Timer UI */
         #total-clock { color: var(--gym); font-size: 12px; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px; text-align: center; }
         .big-go { font-size: 110px; font-weight: 900; text-align: center; margin: 20px 0; }
         .set-indicator { color: #4ade80; font-size: 14px; font-weight: 800; text-transform: uppercase; text-align: center; }
         .tap-finish { border: 2px dashed #444; border-radius: 20px; padding: 25px; margin: 20px 0; cursor: pointer; text-align: center; }
         .tap-finish span { color: #fbbf24; font-weight: 800; font-size: 14px; }
-
-        /* Separate Buttons */
         .btn-green { background: #4ade80; color: black; border-radius: 20px; padding: 18px; font-weight: 800; border: none; width: 100%; cursor: pointer; text-transform: uppercase; margin-bottom: 12px; }
         .btn-blue { background: #38bdf8; color: black; border-radius: 20px; padding: 18px; font-weight: 800; border: none; width: 100%; cursor: pointer; text-transform: uppercase; }
-
         .action-row { display: flex; gap: 12px; margin: 15px 0; }
         .action-row button { flex: 1; border-radius: 20px; padding: 16px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; font-size: 14px; }
         .btn-pause { background: #fbbf24; color: black; }
         .btn-skip { background: #38bdf8; color: black; }
+
+        /* Routine landing cards */
+        .saved-routine-card { background: #1c1c1c; border-radius: 16px; padding: 20px; margin-bottom: 12px; border: 1px solid #2a2a2a; }
+        .saved-routine-card .rname { font-size: 20px; font-weight: 800; margin-bottom: 4px; color: white; }
+        .saved-routine-card .rmeta { font-size: 13px; color: #666; margin-bottom: 14px; }
+        .saved-routine-card .rbtns { display: flex; gap: 10px; }
+        .btn-start-r { flex: 1; background: #4ade80; color: black; border: none; border-radius: 14px; padding: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 14px; }
+        .btn-edit-r { background: #252525; color: #999; border: 1px solid #333; border-radius: 14px; padding: 14px 18px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 13px; }
+        .section-divider { text-align: center; font-size: 11px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 2px; margin: 20px 0 16px; }
+        .btn-create-new { width: 100%; background: transparent; border: 2px dashed #2a2a2a; border-radius: 16px; padding: 18px; color: #38bdf8; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+        /* Paste panel */
+        .paste-panel { background: #1c1c1c; border-radius: 16px; padding: 16px; margin-bottom: 14px; border: 1px solid #2a2a2a; }
+        .paste-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .paste-panel-title { font-size: 14px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-dot { background: #2a2a2a; border: 1px solid #444; color: #38bdf8; border-radius: 50%; width: 26px; height: 26px; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .format-note { background: #0e1c24; border: 1px solid #1e3a4a; border-radius: 10px; padding: 12px; margin-bottom: 12px; font-size: 12px; color: #7aabbb; line-height: 1.7; }
+        .format-note code { background: #162533; color: #38bdf8; padding: 1px 5px; border-radius: 4px; font-size: 11px; }
+        .paste-textarea { width: 100%; background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 10px; color: white; padding: 12px; font-size: 14px; font-family: monospace; resize: vertical; outline: none; min-height: 80px; box-sizing: border-box; line-height: 1.5; }
+        .paste-textarea::placeholder { color: #3a3a3a; }
+        .btn-import-paste { width: 100%; background: #38bdf8; color: black; border: none; border-radius: 12px; padding: 13px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 10px; font-size: 14px; }
+        .back-to-routines { display: block; text-align: center; color: #555; font-size: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-top: 16px; padding: 8px; }
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
+<!-- MAIN MENU — UNCHANGED -->
 <div class="container" id="menu-screen">
     <h1>ProFit <span style="color:#38bdf8">Elite</span></h1>
     <div onclick="showScreen('builder-screen')" class="menu-item"><h3>1. Make My Own Routine</h3><p>Custom list with unique times</p></div>
@@ -60,44 +71,102 @@
     <div onclick="showScreen('muscle-screen')" class="menu-item"><h3>3. Muscle Rest Timer</h3><p>Scientific recovery</p></div>
 </div>
 
+<!-- BUILDER SCREEN -->
 <div class="container hidden" id="builder-screen">
-    <div class="header-row"><a class="back-arrow" onclick="showScreen('menu-screen')">←</a><div class="screen-title">BUILDER</div></div>
+    <div class="header-row">
+        <a class="back-arrow" onclick="showScreen('menu-screen')">←</a>
+        <div class="screen-title">MY ROUTINES</div>
+    </div>
 
-    <!-- Routine selector -->
-    <div style="margin-bottom: 15px;">
-        <label style="font-size: 12px; font-weight: 700; color: #777; text-transform: uppercase;">Current Routine</label>
-        <div style="display: flex; gap: 8px; margin-top: 6px; align-items: center;">
-            <select id="routine-select" onchange="switchRoutine()" style="flex: 1; background: #1c1c1c; border: 1px solid #333; border-radius: 10px; color: white; padding: 10px; font-size: 14px;"></select>
-            <button onclick="newRoutinePrompt()" style="background: #4ade80; color: black; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 800; cursor: pointer; font-size: 16px;" title="New routine">+</button>
-            <button onclick="renameRoutinePrompt()" style="background: #fbbf24; color: black; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 800; cursor: pointer; font-size: 13px;" title="Rename routine">✎</button>
-            <button onclick="deleteRoutinePrompt()" style="background: #ef4444; color: white; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 800; cursor: pointer; font-size: 13px;" title="Delete routine">✕</button>
+    <!-- LANDING: load saved or create new -->
+    <div id="builder-landing">
+        <div id="saved-routines-list"></div>
+        <div class="section-divider" id="or-divider">— OR CREATE NEW —</div>
+        <button class="btn-create-new" onclick="showCreatePanel()">＋ Create New List</button>
+
+        <div id="create-panel" class="hidden">
+
+            <!-- Tab switcher -->
+            <div style="display:flex; gap:8px; margin-bottom:14px;">
+                <button id="tab-paste-btn" onclick="switchCreateTab('paste')"
+                    style="flex:1; padding:11px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer; text-transform:uppercase; letter-spacing:0.5px; background:#38bdf8; color:#000; border:none;">
+                    Copy-Paste
+                </button>
+                <button id="tab-manual-btn" onclick="switchCreateTab('manual')"
+                    style="flex:1; padding:11px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer; text-transform:uppercase; letter-spacing:0.5px; background:#252525; color:#888; border:1px solid #333;">
+                    Manual Entry
+                </button>
+            </div>
+
+            <!-- TAB 1: Paste -->
+            <div id="tab-paste" class="paste-panel">
+                <div class="paste-panel-header">
+                    <span class="paste-panel-title">Paste Your Exercises</span>
+                    <button class="info-dot" onclick="toggleNote('format-note-landing')">?</button>
+                </div>
+                <div id="format-note-landing" class="format-note hidden">
+                    <strong style="color:white">One exercise per line:</strong><br>
+                    <code>Name, Work(sec), Rest(sec), Rounds</code><br><br>
+                    Push Ups, 30, 15, 3<br>
+                    Squats, 40, 20, 2<br>
+                    Plank, 60, 10, 1<br><br>
+                    <span style="color:#445">Paste all at once, tap Import.</span>
+                </div>
+                <textarea class="paste-textarea" id="paste-landing"
+                    placeholder="Push Ups, 30, 15, 3&#10;Squats, 40, 20, 2&#10;Plank, 60, 10, 1"></textarea>
+                <button class="btn-import-paste" onclick="createFromPaste()">IMPORT &amp; EDIT LIST</button>
+            </div>
+
+            <!-- TAB 2: Manual cards -->
+            <div id="tab-manual" class="hidden">
+                <div id="new-routine-list"></div>
+                <div class="tap-finish" style="padding:10px; border-style:dotted; margin-bottom:15px;" onclick="addNewExRow()">
+                    <span>+ ADD EXERCISE</span>
+                </div>
+                <button class="btn-import-paste" onclick="createFromManual()">SAVE &amp; EDIT LIST</button>
+            </div>
+
         </div>
     </div>
 
-    <div id="builder-list"></div>
-    <div class="tap-finish" style="padding: 10px; border-style: dotted; margin-bottom: 15px;" onclick="addExRow()"><span>+ ADD EXERCISE</span></div>
-
-    <!-- Google Sheets Import -->
-    <div style="margin-bottom: 15px;">
-        <button onclick="toggleSheetsImport()" style="background: #1c1c1c; color: #38bdf8; border: 1px solid #333; border-radius: 12px; padding: 12px; width: 100%; font-weight: 700; cursor: pointer; font-size: 13px; text-transform: uppercase;">📋 Import from Google Sheets / CSV</button>
-        <div id="sheets-import-panel" class="hidden" style="margin-top: 10px; background: #1c1c1c; border-radius: 12px; padding: 15px; border: 1px solid #333;">
-            <label style="font-size: 12px; font-weight: 700; color: #777; display: block; margin-bottom: 6px;">Paste CSV rows (exercise_name, workout_time, rest_time, rounds)</label>
-            <textarea id="csv-input" rows="5" placeholder="Push Ups, 30, 15, 3&#10;Squats, 40, 20, 2&#10;Plank, 60, 10, 1" style="width: 100%; background: #0a0a0a; color: white; border: 1px solid #333; border-radius: 8px; padding: 10px; font-size: 13px; font-family: monospace; resize: vertical; box-sizing: border-box;"></textarea>
-            <div style="margin-top: 8px; margin-bottom: 8px;">
-                <label style="font-size: 12px; font-weight: 700; color: #777; display: block; margin-bottom: 6px;">Or paste a published Google Sheets CSV URL</label>
-                <input id="sheets-url" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" style="width: 100%; background: #0a0a0a; color: white; border: 1px solid #333; border-radius: 8px; padding: 10px; font-size: 13px; box-sizing: border-box;">
-            </div>
-            <div style="display: flex; gap: 8px;">
-                <button onclick="importCSV()" style="flex: 1; background: #4ade80; color: black; border: none; border-radius: 10px; padding: 10px; font-weight: 800; cursor: pointer; font-size: 13px;">IMPORT CSV TEXT</button>
-                <button onclick="importFromSheetsURL()" style="flex: 1; background: #38bdf8; color: black; border: none; border-radius: 10px; padding: 10px; font-weight: 800; cursor: pointer; font-size: 13px;">FETCH FROM URL</button>
+    <!-- EDIT VIEW: shown after tapping "Edit List" -->
+    <div id="builder-edit" class="hidden">
+        <div style="margin-bottom:15px;">
+            <div style="display:flex; gap:8px; align-items:center;">
+                <select id="routine-select" onchange="switchRoutine()" style="flex:1; background:#1c1c1c; border:1px solid #333; border-radius:10px; color:white; padding:10px; font-size:14px;"></select>
+                <button onclick="renameRoutinePrompt()" style="background:#fbbf24; color:black; border:none; border-radius:10px; padding:10px 14px; font-weight:800; cursor:pointer;" title="Rename">✎</button>
+                <button onclick="deleteRoutinePrompt()" style="background:#ef4444; color:white; border:none; border-radius:10px; padding:10px 14px; font-weight:800; cursor:pointer;" title="Delete">✕</button>
             </div>
         </div>
-    </div>
 
-    <button class="btn-green" onclick="saveCurrentRoutine()">SAVE ROUTINE</button>
-    <button class="btn-blue" onclick="startWorkout('builder')">START WORKOUT</button>
+        <div id="builder-list"></div>
+        <div class="tap-finish" style="padding:10px; border-style:dotted; margin-bottom:15px;" onclick="addExRow()"><span>+ ADD EXERCISE</span></div>
+
+        <!-- Paste more inside edit -->
+        <div class="paste-panel" style="margin-bottom:15px;">
+            <div class="paste-panel-header">
+                <span class="paste-panel-title">Add More via Paste</span>
+                <button class="info-dot" onclick="toggleNote('format-note-edit')">?</button>
+            </div>
+            <div id="format-note-edit" class="format-note hidden">
+                <strong style="color:white">One exercise per line:</strong><br>
+                <code>Name, Work(sec), Rest(sec), Rounds</code><br><br>
+                Push Ups, 30, 15, 3<br>
+                Squats, 40, 20, 2<br>
+                <span style="color:#445">Tap Import to append to list.</span>
+            </div>
+            <textarea class="paste-textarea" id="paste-edit" rows="3"
+                placeholder="Push Ups, 30, 15, 3&#10;Squats, 40, 20, 2"></textarea>
+            <button class="btn-import-paste" onclick="importIntoEdit()">IMPORT</button>
+        </div>
+
+        <button class="btn-green" onclick="saveCurrentRoutine()">SAVE ROUTINE</button>
+        <button class="btn-blue" onclick="startWorkout('builder')">START WORKOUT</button>
+        <a class="back-to-routines" onclick="showLanding()">← Back to My Routines</a>
+    </div>
 </div>
 
+<!-- MUSCLE & HIIT — UNCHANGED -->
 <div class="container hidden" id="muscle-screen">
     <div class="header-row"><a class="back-arrow" onclick="showScreen('menu-screen')">←</a><div class="screen-title">MUSCLE TIMER</div></div>
     <div class="input-row"><label>Training type</label><select id="m-type"><option>Hypertrophy - Size & Strength</option><option>Exhaust - Lean Muscle & Burn</option></select></div>
@@ -116,6 +185,7 @@
     <button class="btn-blue" onclick="startWorkout('hiit')">START HIIT</button>
 </div>
 
+<!-- TIMER — UNCHANGED -->
 <div class="container hidden" id="timer-active" style="padding-top: 30px;">
     <div id="total-clock">TOTAL TIME LEFT: 00:00</div>
     <div class="set-indicator" id="set-num">SET 1</div>
@@ -133,32 +203,193 @@
 
 <script>
     const synth = window.speechSynthesis;
-    const SKIP_WAIT_SECONDS = 5; // Default wait timer when skip button is pressed
+    const SKIP_WAIT_SECONDS = 5;
     let queue = [], qIdx = 0, timeLeft = 0, totalTimeSec = 0, timer = null, paused = false;
     let routines = JSON.parse(localStorage.getItem('profit_v8_save') || '{}');
     let activeRoutineName = localStorage.getItem('profit_v8_active') || '';
 
-    // Migration: if old format had "My Routine" key, keep it; ensure at least one routine exists
-    if(Object.keys(routines).length === 0) { routines["My Routine"] = []; activeRoutineName = "My Routine"; }
-    if(!activeRoutineName || !routines[activeRoutineName]) activeRoutineName = Object.keys(routines)[0];
+    if (Object.keys(routines).length === 0) { routines["My Routine"] = []; activeRoutineName = "My Routine"; }
+    if (!activeRoutineName || !routines[activeRoutineName]) activeRoutineName = Object.keys(routines)[0];
 
     Sortable.create(document.getElementById('builder-list'), { animation: 150, handle: '.drag-handle' });
+    Sortable.create(document.getElementById('new-routine-list'), { animation: 150, handle: '.drag-handle' });
 
+    /* ── Screen nav ── */
     function showScreen(id) {
         document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
         document.getElementById(id).classList.remove('hidden');
-        if(id === 'builder-screen') loadBuilder();
+        if (id === 'builder-screen') showLanding();
     }
 
-    /* ---- Routine Management ---- */
+    /* ── Builder: landing vs edit ── */
+    function showLanding() {
+        document.getElementById('builder-landing').classList.remove('hidden');
+        document.getElementById('builder-edit').classList.add('hidden');
+        renderSavedRoutines();
+    }
+
+    function showEdit() {
+        document.getElementById('builder-landing').classList.add('hidden');
+        document.getElementById('builder-edit').classList.remove('hidden');
+        populateRoutineSelect();
+        loadBuilderList();
+    }
+
+    function showCreatePanel() {
+        document.getElementById('create-panel').classList.toggle('hidden');
+    }
+
+    function renderSavedRoutines() {
+        const el = document.getElementById('saved-routines-list');
+        const names = Object.keys(routines).filter(n => routines[n] && routines[n].length > 0);
+        const allNames = Object.keys(routines);
+
+        if (allNames.length === 0) { el.innerHTML = ''; return; }
+
+        el.innerHTML = allNames.map(name => {
+            const count = (routines[name] || []).length;
+            const meta = count ? `${count} exercise${count !== 1 ? 's' : ''}` : 'Empty — edit to add exercises';
+            const safe = name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+            return `<div class="saved-routine-card">
+                <div class="rname">${htmlEsc(name)}</div>
+                <div class="rmeta">${meta}</div>
+                <div class="rbtns">
+                    ${count ? `<button class="btn-start-r" onclick="loadAndStart('${safe}')">&#9654; START</button>` : ''}
+                    <button class="btn-edit-r" onclick="openEdit('${safe}')">${count ? 'EDIT LIST' : 'ADD EXERCISES'}</button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function htmlEsc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function loadAndStart(name) {
+        activeRoutineName = name;
+        localStorage.setItem('profit_v8_active', name);
+        const stored = routines[name] || [];
+        if (!stored.length) { alert('This routine is empty. Add exercises first.'); return; }
+        buildBuilderQueue(stored);
+        runEngine();
+    }
+
+    function openEdit(name) {
+        activeRoutineName = name;
+        localStorage.setItem('profit_v8_active', name);
+        showEdit();
+    }
+
+    /* ── Format note toggle ── */
+    function toggleNote(id) {
+        document.getElementById(id).classList.toggle('hidden');
+    }
+
+    /* ── CSV parser ── */
+    function parseCSVRows(text) {
+        const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').map(l=>l.trim()).filter(l=>l);
+        const result = [];
+        for (const line of lines) {
+            let parts;
+            if (line.includes('\t')) parts = line.split('\t').map(p=>p.trim().replace(/^["']|["']$/g,''));
+            else parts = line.split(',').map(p=>p.trim().replace(/^["']|["']$/g,''));
+            if (parts.length < 2) continue;
+            if (['exercise_name','exercise','name'].includes(parts[0].toLowerCase())) continue;
+            result.push({
+                n:  parts[0] || 'Exercise',
+                w:  isNaN(parseInt(parts[1])) ? 30 : parseInt(parts[1]),
+                r:  isNaN(parseInt(parts[2])) ? 15 : parseInt(parts[2]),
+                rd: isNaN(parseInt(parts[3])) ?  1 : parseInt(parts[3])
+            });
+        }
+        return result;
+    }
+
+    /* ── Create panel tabs ── */
+    function switchCreateTab(tab) {
+        const isPaste = tab === 'paste';
+        document.getElementById('tab-paste').classList.toggle('hidden', !isPaste);
+        document.getElementById('tab-manual').classList.toggle('hidden', isPaste);
+        document.getElementById('tab-paste-btn').style.cssText = isPaste
+            ? 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#38bdf8;color:#000;border:none;'
+            : 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#252525;color:#888;border:1px solid #333;';
+        document.getElementById('tab-manual-btn').style.cssText = !isPaste
+            ? 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#38bdf8;color:#000;border:none;'
+            : 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#252525;color:#888;border:1px solid #333;';
+        // Seed one blank row when switching to manual if empty
+        if (!isPaste && !document.getElementById('new-routine-list').children.length) addNewExRow();
+    }
+
+    function addNewExRow(data = null) {
+        const div = document.createElement('div');
+        div.className = 'ex-card';
+        const n = data ? data.n.replace(/"/g,'&quot;') : '';
+        div.innerHTML = `<div class="drag-handle">⠿</div>
+            <span onclick="this.parentElement.remove()" style="position:absolute;right:15px;top:15px;color:#ef4444;cursor:pointer;font-size:20px;">✕</span>
+            <input type="text" class="name-in" placeholder="Exercise Name" value="${n}"
+                style="background:transparent;border:none;border-bottom:1px solid #333;color:white;font-size:16px;width:80%;margin-left:22px;">
+            <div class="card-grid" style="margin-left:22px;">
+                <div class="grid-item"><label>Work(s)</label><input type="number" class="w-in" value="${data?data.w:30}"></div>
+                <div class="grid-item"><label>Rest(s)</label><input type="number" class="r-in" value="${data?data.r:15}"></div>
+                <div class="grid-item"><label>Round</label><input type="number" class="rd-in" value="${data?data.rd:1}"></div>
+            </div>`;
+        document.getElementById('new-routine-list').appendChild(div);
+    }
+
+    function createFromManual() {
+        const cards = [...document.querySelectorAll('#new-routine-list .ex-card')];
+        if (!cards.length) { alert('Add at least one exercise.'); return; }
+        let name = prompt('Name this routine:', 'My Routine');
+        if (!name || !name.trim()) return;
+        name = name.trim();
+        if (routines[name] && !confirm(`"${name}" already exists. Replace its content?`)) return;
+        routines[name] = cards.map(c => ({
+            n:  c.querySelector('.name-in').value.trim() || 'Exercise',
+            w:  parseInt(c.querySelector('.w-in').value)  || 30,
+            r:  parseInt(c.querySelector('.r-in').value)  || 15,
+            rd: parseInt(c.querySelector('.rd-in').value) || 1
+        }));
+        activeRoutineName = name;
+        saveToStorage();
+        document.getElementById('new-routine-list').innerHTML = '';
+        document.getElementById('create-panel').classList.add('hidden');
+        showEdit();
+    }
+
+    /* ── Create new routine from paste (landing) ── */
+    function createFromPaste() {
+        const text = document.getElementById('paste-landing').value.trim();
+        if (!text) { alert('Please paste exercise data first.'); return; }
+        const exercises = parseCSVRows(text);
+        if (!exercises.length) { alert('No valid exercises found. Check the format.'); return; }
+        let name = prompt('Name this routine:', 'My Routine');
+        if (!name || !name.trim()) return;
+        name = name.trim();
+        if (routines[name] && !confirm(`"${name}" already exists. Replace its content?`)) return;
+        routines[name] = exercises;
+        activeRoutineName = name;
+        saveToStorage();
+        document.getElementById('paste-landing').value = '';
+        document.getElementById('create-panel').classList.add('hidden');
+        showEdit();
+    }
+
+    /* ── Import more inside edit ── */
+    function importIntoEdit() {
+        const text = document.getElementById('paste-edit').value.trim();
+        if (!text) { alert('Please paste exercise data first.'); return; }
+        const exercises = parseCSVRows(text);
+        if (!exercises.length) { alert('No valid exercises found.'); return; }
+        exercises.forEach(ex => addExRow(ex));
+        document.getElementById('paste-edit').value = '';
+    }
+
+    /* ── Routine management ── */
     function populateRoutineSelect() {
         const sel = document.getElementById('routine-select');
         sel.innerHTML = '';
         Object.keys(routines).forEach(name => {
             const opt = document.createElement('option');
-            opt.value = name;
-            opt.textContent = name;
-            if(name === activeRoutineName) opt.selected = true;
+            opt.value = name; opt.textContent = name;
+            if (name === activeRoutineName) opt.selected = true;
             sel.appendChild(opt);
         });
     }
@@ -166,50 +397,39 @@
     function switchRoutine() {
         activeRoutineName = document.getElementById('routine-select').value;
         localStorage.setItem('profit_v8_active', activeRoutineName);
-        loadBuilder();
-    }
-
-    function newRoutinePrompt() {
-        const name = prompt("Enter a name for the new routine:");
-        if(!name || !name.trim()) return;
-        const trimmed = name.trim();
-        if(routines[trimmed]) { alert("A routine with that name already exists."); return; }
-        routines[trimmed] = [];
-        activeRoutineName = trimmed;
-        localStorage.setItem('profit_v8_save', JSON.stringify(routines));
-        localStorage.setItem('profit_v8_active', activeRoutineName);
-        loadBuilder();
+        loadBuilderList();
     }
 
     function renameRoutinePrompt() {
-        const newName = prompt("Rename routine to:", activeRoutineName);
-        if(!newName || !newName.trim() || newName.trim() === activeRoutineName) return;
+        const newName = prompt('Rename to:', activeRoutineName);
+        if (!newName || !newName.trim() || newName.trim() === activeRoutineName) return;
         const trimmed = newName.trim();
-        if(routines[trimmed]) { alert("A routine with that name already exists."); return; }
+        if (routines[trimmed]) { alert('A routine with that name already exists.'); return; }
         routines[trimmed] = routines[activeRoutineName];
         delete routines[activeRoutineName];
         activeRoutineName = trimmed;
-        localStorage.setItem('profit_v8_save', JSON.stringify(routines));
-        localStorage.setItem('profit_v8_active', activeRoutineName);
-        loadBuilder();
+        saveToStorage();
+        populateRoutineSelect();
     }
 
     function deleteRoutinePrompt() {
-        if(Object.keys(routines).length <= 1) { alert("Cannot delete the only routine."); return; }
-        if(!confirm(`Delete "${activeRoutineName}"?`)) return;
+        if (Object.keys(routines).length <= 1) { alert('Cannot delete the only routine.'); return; }
+        if (!confirm(`Delete "${activeRoutineName}"?`)) return;
         delete routines[activeRoutineName];
         activeRoutineName = Object.keys(routines)[0];
-        localStorage.setItem('profit_v8_save', JSON.stringify(routines));
-        localStorage.setItem('profit_v8_active', activeRoutineName);
-        loadBuilder();
+        saveToStorage();
+        showLanding();
     }
 
-    /* ---- Builder ---- */
+    /* ── Builder list ── */
     function addExRow(data = null) {
         const div = document.createElement('div');
         div.className = 'ex-card';
-        div.innerHTML = `<div class="drag-handle">⠿</div><span onclick="this.parentElement.remove()" style="position:absolute; right:15px; top:15px; color:#ef4444; cursor:pointer; font-size: 20px;">✕</span>
-            <input type="text" class="name-in" placeholder="Exercise Name" value="${data?data.n:''}" style="background:transparent; border:none; border-bottom:1px solid #333; color:white; font-size:16px; width:80%; margin-left:22px;">
+        const n = data ? data.n.replace(/"/g,'&quot;') : '';
+        div.innerHTML = `<div class="drag-handle">⠿</div>
+            <span onclick="this.parentElement.remove()" style="position:absolute;right:15px;top:15px;color:#ef4444;cursor:pointer;font-size:20px;">✕</span>
+            <input type="text" class="name-in" placeholder="Exercise Name" value="${n}"
+                style="background:transparent;border:none;border-bottom:1px solid #333;color:white;font-size:16px;width:80%;margin-left:22px;">
             <div class="card-grid" style="margin-left:22px;">
                 <div class="grid-item"><label>Work(s)</label><input type="number" class="w-in" value="${data?data.w:30}"></div>
                 <div class="grid-item"><label>Rest(s)</label><input type="number" class="r-in" value="${data?data.r:15}"></div>
@@ -218,225 +438,185 @@
         document.getElementById('builder-list').appendChild(div);
     }
 
-    function loadBuilder() {
-        populateRoutineSelect();
+    function loadBuilderList() {
         const list = document.getElementById('builder-list');
         list.innerHTML = '';
         (routines[activeRoutineName] || []).forEach(d => addExRow(d));
-        if(!list.children.length) addExRow();
+        if (!list.children.length) addExRow();
     }
 
     function saveCurrentRoutine() {
         const cards = [...document.querySelectorAll('.ex-card')];
         routines[activeRoutineName] = cards.map(c => ({
-            n: c.querySelector('.name-in').value, w: c.querySelector('.w-in').value, r: c.querySelector('.r-in').value, rd: c.querySelector('.rd-in').value
+            n:  c.querySelector('.name-in').value.trim() || 'Exercise',
+            w:  parseInt(c.querySelector('.w-in').value)  || 30,
+            r:  parseInt(c.querySelector('.r-in').value)  || 15,
+            rd: parseInt(c.querySelector('.rd-in').value) || 1
         }));
+        saveToStorage();
+        alert('Routine Saved!');
+    }
+
+    function saveToStorage() {
         localStorage.setItem('profit_v8_save', JSON.stringify(routines));
         localStorage.setItem('profit_v8_active', activeRoutineName);
-        alert("Routine Saved!");
     }
 
-    /* ---- Google Sheets / CSV Import ---- */
-    function toggleSheetsImport() {
-        document.getElementById('sheets-import-panel').classList.toggle('hidden');
-    }
+    /* ── Speech ── */
+    function speak(t) { synth.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang='en-IN'; u.rate=0.95; synth.speak(u); }
 
-    // FIX 1: Strip surrounding quotes from each field before parsing.
-    // Google Sheets CSV exports wrap fields in double-quotes, causing parseInt to return NaN
-    // and fall back to defaults. The regex removes leading/trailing " or ' characters.
-    function parseCSVRows(text) {
-        // Normalize line endings
-        const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').map(l => l.trim()).filter(l => l.length > 0);
-        const exercises = [];
-        for(const line of lines) {
-            // Detect delimiter: tab (from spreadsheet paste), comma (CSV), or 2+ spaces (space-padded)
-            let parts;
-            if(line.includes('\t')) {
-                parts = line.split('\t').map(p => p.trim().replace(/^["']|["']$/g, ''));
-            } else if(line.includes(',')) {
-                parts = line.split(',').map(p => p.trim().replace(/^["']|["']$/g, ''));
-            } else {
-                parts = line.split(/\s{2,}/).map(p => p.trim().replace(/^["']|["']$/g, ''));
+    /* ══════════════════════════════════════════
+       QUEUE BUILDER — speech changes applied here
+       ══════════════════════════════════════════ */
+    function buildBuilderQueue(exList) {
+        queue = []; totalTimeSec = 0;
+        exList.forEach((ex, idx) => {
+            const n  = ex.n  || `Exercise ${idx+1}`;
+            const w  = parseInt(ex.w)  || 30;
+            const r  = parseInt(ex.r)  || 15;
+            const rd = parseInt(ex.rd) || 1;
+
+            for (let i = 1; i <= rd; i++) {
+                // Prepare only before first ever exercise
+                if (idx === 0 && i === 1) {
+                    queue.push({ d: n, s: 'PREPARE', v: `Next we will do ${n}. Get ready.`, t: 5 });
+                    totalTimeSec += 5;
+                }
+
+                // Work phase: say "Now start" instead of "Go"
+                queue.push({ d: n, s: `SET ${i}`, v: `Now start`, t: w });
+                totalTimeSec += w;
+
+                // Figure out what comes after this rest
+                let nextName = null, nextSet = null;
+                if (i < rd) { nextName = n; nextSet = i + 1; }
+                else if (exList[idx + 1]) { nextName = exList[idx + 1].n || `Exercise ${idx+2}`; nextSet = 1; }
+
+                // Rest voice: "Ok. Next we will do X set N. We'll start in R seconds."
+                const restVoice = nextName
+                    ? `Ok. Next we will do ${nextName} set ${nextSet}. We'll start in ${r} seconds.`
+                    : `Ok. All done. Great work.`;
+
+                queue.push({ d: 'REST', s: 'REST', v: restVoice, t: r });
+                totalTimeSec += r;
             }
-            if(parts.length < 2) continue;
-            // Skip header rows that look like labels
-            if(parts[0].toLowerCase() === 'exercise_name' || parts[0].toLowerCase() === 'exercise' || parts[0].toLowerCase() === 'name') continue;
-            const name = parts[0] || '';
-            const workTime = parseInt(parts[1]);
-            const restTime = parseInt(parts[2]);
-            const rounds = parseInt(parts[3]);
-            exercises.push({
-                n: name,
-                w: isNaN(workTime) ? 30 : workTime,
-                r: isNaN(restTime) ? 15 : restTime,
-                rd: isNaN(rounds) ? 1 : rounds
-            });
-        }
-        return exercises;
+        });
     }
-
-    function importCSV() {
-        const text = document.getElementById('csv-input').value.trim();
-        if(!text) { alert("Please paste CSV data first."); return; }
-        const exercises = parseCSVRows(text);
-        if(exercises.length === 0) { alert("No valid exercises found in the CSV data."); return; }
-        // Add to current routine
-        exercises.forEach(ex => addExRow(ex));
-        document.getElementById('csv-input').value = '';
-        alert(`Imported ${exercises.length} exercise(s). Don't forget to save!`);
-    }
-
-    // FIX 2: Direct fetch to Google Sheets is blocked by CORS.
-    // Route the request through corsproxy.io to bypass the browser's cross-origin restriction.
-    function importFromSheetsURL() {
-        const url = document.getElementById('sheets-url').value.trim();
-        if(!url) { alert("Please enter a Google Sheets published CSV URL."); return; }
-        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
-        fetch(proxyUrl)
-            .then(res => {
-                if(!res.ok) throw new Error('Failed to fetch. Make sure the sheet is published to web as CSV.');
-                return res.text();
-            })
-            .then(text => {
-                const exercises = parseCSVRows(text);
-                if(exercises.length === 0) { alert("No valid exercises found in the fetched data."); return; }
-                exercises.forEach(ex => addExRow(ex));
-                document.getElementById('sheets-url').value = '';
-                alert(`Imported ${exercises.length} exercise(s) from URL. Don't forget to save!`);
-            })
-            .catch(err => alert("Error fetching sheet: " + err.message));
-    }
-
-    function speak(t) { synth.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'en-IN'; u.rate = 0.95; synth.speak(u); }
 
     function startWorkout(mode) {
         queue = []; totalTimeSec = 0;
-        if(mode === 'builder') {
+
+        if (mode === 'builder') {
             const cards = [...document.querySelectorAll('.ex-card')];
-            cards.forEach((c, idx) => {
-                const n = c.querySelector('.name-in').value || `Exercise ${idx+1}`;
-                const w = parseInt(c.querySelector('.w-in').value), r = parseInt(c.querySelector('.r-in').value), rd = parseInt(c.querySelector('.rd-in').value);
-                for(let i=1; i<=rd; i++) {
-                    if(idx === 0 && i === 1) { queue.push({ d: n, s: `PREPARE`, v: `We will start ${n} now`, t: 5 }); totalTimeSec += 5; }
-                    queue.push({ d: n, s: `SET ${i}`, v: `Go!`, t: w }); totalTimeSec += w;
-                    let next = (i < rd) ? `${n} Set ${i+1}` : (cards[idx+1] ? cards[idx+1].querySelector('.name-in').value : "Workout complete");
-                    queue.push({ d: "REST", s: `REST`, v: `Set over. Next is ${next}. Take rest.`, t: r }); totalTimeSec += r;
-                }
-            });
-        } else if(mode === 'hiit') {
-            const w = parseInt(document.getElementById('h-work').value), r = parseInt(document.getElementById('h-rest').value), ex = parseInt(document.getElementById('h-ex').value), rds = parseInt(document.getElementById('h-rounds').value);
-            for(let j=1; j<=rds; j++) {
-                for(let i=1; i<=ex; i++) {
-                    if(j===1 && i===1) { queue.push({ d: `Exercise 1`, s: `PREPARE`, v: `Starting HIIT workout now`, t: 5 }); totalTimeSec += 5; }
-                    queue.push({ d: `Exercise ${i}`, s: `ROUND ${j}`, v: `Go!`, t: w }); totalTimeSec += w;
-                    let next = (i < ex) ? `Exercise ${i+1}` : (j < rds ? `Round ${j+1}` : "Done");
-                    queue.push({ d: "REST", s: `REST`, v: `Next is ${next}. Rest.`, t: r }); totalTimeSec += r;
+            if (!cards.length) { alert('No exercises in the list.'); return; }
+            const exList = cards.map((c, idx) => ({
+                n:  c.querySelector('.name-in').value.trim() || `Exercise ${idx+1}`,
+                w:  c.querySelector('.w-in').value,
+                r:  c.querySelector('.r-in').value,
+                rd: c.querySelector('.rd-in').value
+            }));
+            buildBuilderQueue(exList);
+
+        } else if (mode === 'hiit') {
+            const w=parseInt(document.getElementById('h-work').value), r=parseInt(document.getElementById('h-rest').value);
+            const ex=parseInt(document.getElementById('h-ex').value), rds=parseInt(document.getElementById('h-rounds').value);
+            for (let j=1; j<=rds; j++) {
+                for (let i=1; i<=ex; i++) {
+                    if (j===1&&i===1) { queue.push({d:`Exercise 1`,s:'PREPARE',v:`Starting HIIT. Get ready.`,t:5}); totalTimeSec+=5; }
+                    queue.push({d:`Exercise ${i}`,s:`ROUND ${j}`,v:`Now start`,t:w}); totalTimeSec+=w;
+                    let rv = (i<ex) ? `Ok. Next is Exercise ${i+1}. We'll start in ${r} seconds.`
+                           : (j<rds) ? `Ok. Round ${j+1} coming up. We'll start in ${r} seconds.`
+                           : `Ok. Workout complete.`;
+                    queue.push({d:'REST',s:'REST',v:rv,t:r}); totalTimeSec+=r;
                 }
             }
-        } else if(mode === 'muscle') {
-            const sets = parseInt(document.getElementById('m-sets').value), m = document.getElementById('m-muscle').value;
-            for(let i=1; i<=sets; i++) {
-                if(i === 1) { queue.push({ d: m, s: `PREPARE`, v: `We will start ${m} now`, t: 5 }); totalTimeSec += 5; }
-                queue.push({ d: m, s: `SET ${i}`, v: `Go!`, t: 0 });
-                queue.push({ d: "REST", s: `REST`, v: (i<sets)?`Next set in 90 seconds.`:`Workout finished.`, t: 90 }); totalTimeSec += 90;
+
+        } else if (mode === 'muscle') {
+            const sets=parseInt(document.getElementById('m-sets').value), m=document.getElementById('m-muscle').value;
+            for (let i=1; i<=sets; i++) {
+                if (i===1) { queue.push({d:m,s:'PREPARE',v:`Next we will do ${m}. Get ready.`,t:5}); totalTimeSec+=5; }
+                queue.push({d:m,s:`SET ${i}`,v:`Now start`,t:0});
+                const rv = (i<sets) ? `Ok. Set ${i+1} coming up. We'll start in 90 seconds.` : `Ok. All sets done.`;
+                queue.push({d:'REST',s:'REST',v:rv,t:90}); totalTimeSec+=90;
             }
         }
+
         runEngine();
     }
 
+    /* ── Timer engine ── */
     function updateTotalClock() {
-        const min = Math.floor(totalTimeSec / 60);
-        const sec = totalTimeSec % 60;
-        document.getElementById('total-clock').innerText = `TOTAL TIME LEFT: ${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+        const m=Math.floor(totalTimeSec/60), s=totalTimeSec%60;
+        document.getElementById('total-clock').innerText=`TOTAL TIME LEFT: ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
     }
 
     function advanceQueue() {
         qIdx++;
-        if(qIdx < queue.length) {
+        if (qIdx < queue.length) {
             const cur = queue[qIdx];
             document.getElementById('set-num').innerText = cur.s;
             document.getElementById('ex-display').innerText = cur.d;
             speak(cur.v);
-            if(cur.t === 0) {
-                document.getElementById('display').innerText = "GO";
+            if (cur.t === 0) {
+                document.getElementById('display').innerText = 'GO';
                 document.getElementById('manual-trigger').onclick = () => { timeLeft = 0; };
             } else { timeLeft = cur.t; }
             updateTotalClock();
         } else {
             clearInterval(timer);
-            document.getElementById('total-clock').innerText = "WORKOUT COMPLETE";
-            speak("Workout complete.");
+            document.getElementById('total-clock').innerText = 'WORKOUT COMPLETE';
+            speak('Workout complete. Well done!');
             setTimeout(() => location.reload(), 2000);
         }
     }
 
     function timerTick() {
-        if(timeLeft > 0) {
+        if (timeLeft > 0) {
             document.getElementById('display').innerText = timeLeft;
-            if(timeLeft <= 3) speak(timeLeft);
+            if (timeLeft <= 3) speak(String(timeLeft));
             timeLeft--;
-            if(totalTimeSec > 0) totalTimeSec--;
+            if (totalTimeSec > 0) totalTimeSec--;
             updateTotalClock();
-        } else {
-            advanceQueue();
-        }
+        } else { advanceQueue(); }
     }
 
     function runEngine() {
         showScreen('timer-active');
-        qIdx = 0; timeLeft = queue[0].t;
-        paused = false;
+        qIdx = 0; timeLeft = queue[0].t; paused = false;
         document.getElementById('pause-btn').innerText = 'PAUSE';
         updateTotalClock();
         speak(queue[0].v);
-        if(timer) clearInterval(timer);
+        if (timer) clearInterval(timer);
         timer = setInterval(timerTick, 1000);
     }
 
     function togglePause() {
-        if(paused) {
-            paused = false;
-            timer = setInterval(timerTick, 1000);
+        if (paused) {
+            paused = false; timer = setInterval(timerTick, 1000);
             document.getElementById('pause-btn').innerText = 'PAUSE';
         } else {
-            paused = true;
-            clearInterval(timer);
-            timer = null;
+            paused = true; clearInterval(timer); timer = null;
             document.getElementById('pause-btn').innerText = 'RESUME';
             synth.cancel();
         }
     }
 
     function skipExercise() {
-        // Find the current exercise name (look backward for a non-REST item)
         let currentExName = '';
-        for(let i = qIdx; i >= 0; i--) {
-            if(queue[i].d !== 'REST') { currentExName = queue[i].d; break; }
-        }
-
-        // Subtract remaining time of the current item
+        for (let i=qIdx; i>=0; i--) { if (queue[i].d !== 'REST') { currentExName = queue[i].d; break; } }
         totalTimeSec -= timeLeft;
-
-        // Advance past all items belonging to the current exercise
         let nextIdx = qIdx + 1;
-        while(nextIdx < queue.length) {
-            if(queue[nextIdx].d !== 'REST' && queue[nextIdx].d !== currentExName) break;
+        while (nextIdx < queue.length) {
+            if (queue[nextIdx].d !== 'REST' && queue[nextIdx].d !== currentExName) break;
             totalTimeSec -= queue[nextIdx].t;
             nextIdx++;
         }
-
-        if(totalTimeSec < 0) totalTimeSec = 0;
-
-        if(nextIdx < queue.length) {
-            // Insert a preparation step before the next exercise
+        if (totalTimeSec < 0) totalTimeSec = 0;
+        if (nextIdx < queue.length) {
             const nextExName = queue[nextIdx].d;
-            const prepItem = { d: nextExName, s: 'PREPARE', v: `Next exercise is ${nextExName}. Get ready.`, t: SKIP_WAIT_SECONDS };
-
-            // Insert the prep item into the queue and adjust total time
+            const prepItem = { d:nextExName, s:'PREPARE', v:`Next we will do ${nextExName} set 1. We'll start in ${SKIP_WAIT_SECONDS} seconds.`, t:SKIP_WAIT_SECONDS };
             queue.splice(nextIdx, 0, prepItem);
             totalTimeSec += SKIP_WAIT_SECONDS;
-
-            // Jump to the newly inserted prep item
             qIdx = nextIdx;
             const cur = queue[qIdx];
             timeLeft = cur.t;
@@ -445,17 +625,11 @@
             document.getElementById('display').innerText = cur.t;
             speak(cur.v);
             updateTotalClock();
-
-            // If paused, resume the timer
-            if(paused) {
-                paused = false;
-                timer = setInterval(timerTick, 1000);
-                document.getElementById('pause-btn').innerText = 'PAUSE';
-            }
+            if (paused) { paused=false; timer=setInterval(timerTick,1000); document.getElementById('pause-btn').innerText='PAUSE'; }
         } else {
             clearInterval(timer);
-            document.getElementById('total-clock').innerText = "WORKOUT COMPLETE";
-            speak("Workout complete.");
+            document.getElementById('total-clock').innerText = 'WORKOUT COMPLETE';
+            speak('Workout complete. Well done!');
             setTimeout(() => location.reload(), 2000);
         }
     }
