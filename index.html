@@ -58,6 +58,11 @@
         .btn-import-paste { width: 100%; background: #38bdf8; color: black; border: none; border-radius: 12px; padding: 13px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 10px; font-size: 14px; }
         .back-to-routines { display: block; text-align: center; color: #555; font-size: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-top: 16px; padding: 8px; }
 
+        /* Storage warning + backup */
+        .storage-warn { background: #2a1010; border: 1px solid #7f1d1d; color: #fca5a5; border-radius: 12px; padding: 12px; font-size: 13px; line-height: 1.5; margin-bottom: 14px; }
+        .backup-row { display: flex; gap: 8px; margin-top: 10px; }
+        .backup-row button { flex: 1; background: #252525; color: #ddd; border: 1px solid #333; border-radius: 12px; padding: 12px; font-weight: 800; font-size: 12px; cursor: pointer; text-transform: uppercase; }
+
         .hidden { display: none !important; }
     </style>
 </head>
@@ -80,6 +85,7 @@
 
     <!-- LANDING: load saved or create new -->
     <div id="builder-landing">
+        <div id="storage-warn" class="storage-warn hidden"></div>
         <div id="saved-routines-list"></div>
         <div class="section-divider" id="or-divider">— OR CREATE NEW —</div>
         <button class="btn-create-new" onclick="showCreatePanel()">＋ Create New List</button>
@@ -126,6 +132,29 @@
                 <button class="btn-import-paste" onclick="createFromManual()">SAVE &amp; EDIT LIST</button>
             </div>
 
+        </div>
+
+        <!-- Backup / restore -->
+        <div class="section-divider">— BACKUP —</div>
+        <div class="paste-panel">
+            <div class="paste-panel-header">
+                <span class="paste-panel-title">Backup &amp; Restore</span>
+                <button class="info-dot" onclick="toggleNote('format-note-backup')">?</button>
+            </div>
+            <div id="format-note-backup" class="format-note hidden">
+                Routines are stored only in this browser. Safari can wipe them if the site is not opened for ~7 days.<br><br>
+                <strong style="color:white">Export</strong> saves a backup file (save it to Files / iCloud Drive / Google Drive, or send it to yourself).<br>
+                <strong style="color:white">Copy</strong> copies the backup as text (paste it in Notes or email).<br>
+                <strong style="color:white">Restore</strong> loads a backup file, or paste backup text below and tap Restore.
+            </div>
+            <div class="backup-row">
+                <button onclick="exportBackup()">⬇ Export</button>
+                <button onclick="copyBackup()">⧉ Copy</button>
+                <button onclick="restoreBackup()">⬆ Restore</button>
+            </div>
+            <textarea class="paste-textarea" id="restore-text" rows="2" style="margin-top:10px;"
+                placeholder="(Optional) paste backup text here, then tap Restore"></textarea>
+            <input type="file" id="restore-file" accept=".json,application/json,text/plain" class="hidden" onchange="restoreFromFile(this)">
         </div>
     </div>
 
@@ -205,8 +234,29 @@
     const synth = window.speechSynthesis;
     const SKIP_WAIT_SECONDS = 5;
     let queue = [], qIdx = 0, timeLeft = 0, totalTimeSec = 0, timer = null, paused = false;
-    let routines = JSON.parse(localStorage.getItem('profit_v8_save') || '{}');
-    let activeRoutineName = localStorage.getItem('profit_v8_active') || '';
+    /* ── Safe storage ── */
+    const SAVE_KEY = 'profit_v8_save', ACTIVE_KEY = 'profit_v8_active';
+    function storeGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+    function storeSet(key, val) { try { localStorage.setItem(key, val); return true; } catch (e) { return false; } }
+    function storageWorks() {
+        const k = '__profit_test__';
+        if (!storeSet(k, '1')) return false;
+        const ok = storeGet(k) === '1';
+        try { localStorage.removeItem(k); } catch (e) {}
+        return ok;
+    }
+    function loadRoutines() {
+        try {
+            const data = JSON.parse(storeGet(SAVE_KEY) || '{}');
+            return (data && typeof data === 'object' && !Array.isArray(data)) ? data : {};
+        } catch (e) { return {}; }
+    }
+    const STORAGE_OK = storageWorks();
+    // Ask the browser not to auto-evict our data (Chrome/Android honour this; Safari mostly ignores it).
+    if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+
+    let routines = loadRoutines();
+    let activeRoutineName = storeGet(ACTIVE_KEY) || '';
 
     if (Object.keys(routines).length === 0) { routines["My Routine"] = []; activeRoutineName = "My Routine"; }
     if (!activeRoutineName || !routines[activeRoutineName]) activeRoutineName = Object.keys(routines)[0];
@@ -223,6 +273,12 @@
 
     /* ── Builder: landing vs edit ── */
     function showLanding() {
+        const warn = document.getElementById('storage-warn');
+        if (!STORAGE_OK) {
+            warn.innerHTML = '<strong>⚠ This browser is not saving data.</strong><br>Routines will be lost when you close the page. ' +
+                'Turn off Private Browsing, or in iPhone Settings → Safari turn off "Block All Cookies". Use Export below to keep a copy.';
+            warn.classList.remove('hidden');
+        } else warn.classList.add('hidden');
         document.getElementById('builder-landing').classList.remove('hidden');
         document.getElementById('builder-edit').classList.add('hidden');
         renderSavedRoutines();
@@ -265,7 +321,7 @@
 
     function loadAndStart(name) {
         activeRoutineName = name;
-        localStorage.setItem('profit_v8_active', name);
+        storeSet(ACTIVE_KEY, name);
         const stored = routines[name] || [];
         if (!stored.length) { alert('This routine is empty. Add exercises first.'); return; }
         buildBuilderQueue(stored);
@@ -274,7 +330,7 @@
 
     function openEdit(name) {
         activeRoutineName = name;
-        localStorage.setItem('profit_v8_active', name);
+        storeSet(ACTIVE_KEY, name);
         showEdit();
     }
 
@@ -396,7 +452,7 @@
 
     function switchRoutine() {
         activeRoutineName = document.getElementById('routine-select').value;
-        localStorage.setItem('profit_v8_active', activeRoutineName);
+        storeSet(ACTIVE_KEY, activeRoutineName);
         loadBuilderList();
     }
 
@@ -446,20 +502,94 @@
     }
 
     function saveCurrentRoutine() {
-        const cards = [...document.querySelectorAll('.ex-card')];
+        const cards = [...document.querySelectorAll('#builder-list .ex-card')];
         routines[activeRoutineName] = cards.map(c => ({
             n:  c.querySelector('.name-in').value.trim() || 'Exercise',
             w:  parseInt(c.querySelector('.w-in').value)  || 30,
             r:  parseInt(c.querySelector('.r-in').value)  || 15,
             rd: parseInt(c.querySelector('.rd-in').value) || 1
         }));
-        saveToStorage();
-        alert('Routine Saved!');
+        if (saveToStorage()) alert('Routine Saved!');
     }
 
     function saveToStorage() {
-        localStorage.setItem('profit_v8_save', JSON.stringify(routines));
-        localStorage.setItem('profit_v8_active', activeRoutineName);
+        const json = JSON.stringify(routines);
+        const ok = storeSet(SAVE_KEY, json) && storeSet(ACTIVE_KEY, activeRoutineName) && storeGet(SAVE_KEY) === json;
+        if (!ok) alert('⚠ Could not save on this device.\n\nPrivate Browsing or "Block All Cookies" may be on, or storage is full. ' +
+            'Your changes will be lost when you close the page — use Backup → Export to keep a copy.');
+        return ok;
+    }
+
+    /* ── Backup / restore ── */
+    function backupText() {
+        return JSON.stringify({ app: 'ProFit Elite', version: 1, exported: new Date().toISOString(), routines }, null, 1);
+    }
+
+    async function exportBackup() {
+        const text = backupText();
+        const fileName = `profit-routines-${new Date().toISOString().slice(0,10)}.json`;
+        const file = new File([text], fileName, { type: 'application/json' });
+        // iPhone/Android: share sheet lets you save to Files, iCloud, Drive, mail, WhatsApp…
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try { await navigator.share({ files: [file], title: 'ProFit routines backup' }); return; }
+            catch (e) { if (e.name === 'AbortError') return; }
+        }
+        const url = URL.createObjectURL(file);
+        const a = document.createElement('a');
+        a.href = url; a.download = fileName;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function copyBackup() {
+        const text = backupText();
+        try { await navigator.clipboard.writeText(text); alert('Backup copied. Paste it into Notes or an email to keep it safe.'); }
+        catch (e) {
+            const ta = document.getElementById('restore-text');
+            ta.value = text; ta.select();
+            alert('Could not copy automatically. The backup text is in the box — select it and copy manually.');
+        }
+    }
+
+    function restoreBackup() {
+        const text = document.getElementById('restore-text').value.trim();
+        if (text) applyBackup(text);
+        else document.getElementById('restore-file').click();
+    }
+
+    function restoreFromFile(input) {
+        const f = input.files && input.files[0];
+        input.value = '';
+        if (!f) return;
+        f.text().then(applyBackup).catch(() => alert('Could not read that file.'));
+    }
+
+    function applyBackup(text) {
+        let data;
+        try { data = JSON.parse(text); } catch (e) { alert('That is not a valid backup.'); return; }
+        const incoming = data && typeof data.routines === 'object' ? data.routines : data;
+        if (!incoming || typeof incoming !== 'object' || Array.isArray(incoming)) { alert('That is not a valid backup.'); return; }
+        const clean = {};
+        for (const [name, list] of Object.entries(incoming)) {
+            if (!Array.isArray(list)) continue;
+            clean[name] = list.filter(x => x && typeof x === 'object').map(x => ({
+                n:  String(x.n || 'Exercise'),
+                w:  parseInt(x.w)  || 30,
+                r:  parseInt(x.r)  || 15,
+                rd: parseInt(x.rd) || 1
+            }));
+        }
+        const names = Object.keys(clean);
+        if (!names.length) { alert('No routines found in that backup.'); return; }
+        const clashes = names.filter(n => routines[n] && routines[n].length);
+        if (clashes.length && !confirm(`Restore ${names.length} routine(s)?\n\nThese will be replaced: ${clashes.join(', ')}`)) return;
+        // Drop the empty placeholder routine if it's the only thing here
+        if (Object.keys(routines).length === 1 && routines['My Routine'] && !routines['My Routine'].length) delete routines['My Routine'];
+        Object.assign(routines, clean);
+        if (!routines[activeRoutineName]) activeRoutineName = names[0];
+        document.getElementById('restore-text').value = '';
+        if (saveToStorage()) alert(`Restored ${names.length} routine(s).`);
+        showLanding();
     }
 
     /* ── Speech ── */
