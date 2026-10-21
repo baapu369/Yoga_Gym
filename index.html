@@ -3,77 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ProFit Elite v8.3</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
-    <style>
-        :root { --bg: #000000; --card: #151515; --accent: #38bdf8; --hiit: #4ade80; --muscle: #a855f7; --gym: #fbbf24; --text: #ffffff; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; display: flex; justify-content: center; min-height: 100vh; }
-        .container { background: var(--bg); width: 100%; max-width: 420px; display: flex; flex-direction: column; }
-        h1 { font-size: 32px; margin: 20px 0; font-weight: 900; }
-        .menu-item { background: #1c1c1c; border-radius: 20px; padding: 25px; margin-bottom: 15px; cursor: pointer; border: 1px solid transparent; }
-        .menu-item h3 { margin: 0; font-size: 18px; color: white; }
-        .menu-item p { margin: 5px 0 0; font-size: 13px; color: #777; }
-        .header-row { display: flex; align-items: center; margin-bottom: 20px; padding-top: 10px; }
-        .back-arrow { font-size: 24px; cursor: pointer; margin-right: 20px; color: white; text-decoration: none; }
-        .screen-title { font-size: 16px; font-weight: 800; text-transform: uppercase; }
-        .input-row { margin-bottom: 25px; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
-        .input-row label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: white; }
-        select, input { background: transparent; border: none; color: #888; width: 100%; font-size: 15px; outline: none; }
-        .ex-card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 3px solid var(--accent); position: relative; }
-        .drag-handle { position: absolute; left: 0; top: 0; bottom: 0; width: 36px; display: flex; align-items: center; justify-content: center; cursor: grab; color: #555; font-size: 18px; user-select: none; touch-action: none; border-radius: 12px 0 0 12px; }
-        .drag-handle:active { cursor: grabbing; color: var(--accent); }
-        .card-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 10px; }
-        .grid-item label { font-size: 12px; color: white; font-weight: 600; }
-        #total-clock { color: var(--gym); font-size: 12px; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px; text-align: center; }
-        .big-go { font-size: 110px; font-weight: 900; text-align: center; margin: 20px 0; }
-        .set-indicator { color: #4ade80; font-size: 14px; font-weight: 800; text-transform: uppercase; text-align: center; }
-        .tap-finish { border: 2px dashed #444; border-radius: 20px; padding: 25px; margin: 20px 0; cursor: pointer; text-align: center; }
-        .tap-finish span { color: #fbbf24; font-weight: 800; font-size: 14px; }
-        .btn-green { background: #4ade80; color: black; border-radius: 20px; padding: 18px; font-weight: 800; border: none; width: 100%; cursor: pointer; text-transform: uppercase; margin-bottom: 12px; }
-        .btn-blue { background: #38bdf8; color: black; border-radius: 20px; padding: 18px; font-weight: 800; border: none; width: 100%; cursor: pointer; text-transform: uppercase; }
-        .action-row { display: flex; gap: 12px; margin: 15px 0; }
-        .action-row button { flex: 1; border-radius: 20px; padding: 16px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; font-size: 14px; }
-        .btn-pause { background: #fbbf24; color: black; }
-        .btn-skip { background: #38bdf8; color: black; }
-
-        /* Routine landing cards */
-        .saved-routine-card { background: #1c1c1c; border-radius: 16px; padding: 20px; margin-bottom: 12px; border: 1px solid #2a2a2a; }
-        .saved-routine-card .rname { font-size: 20px; font-weight: 800; margin-bottom: 4px; color: white; }
-        .saved-routine-card .rmeta { font-size: 13px; color: #666; margin-bottom: 14px; }
-        .saved-routine-card .rbtns { display: flex; gap: 10px; }
-        .btn-start-r { flex: 1; background: #4ade80; color: black; border: none; border-radius: 14px; padding: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 14px; }
-        .btn-edit-r { background: #252525; color: #999; border: 1px solid #333; border-radius: 14px; padding: 14px 18px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 13px; }
-        .section-divider { text-align: center; font-size: 11px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 2px; margin: 20px 0 16px; }
-        .btn-create-new { width: 100%; background: transparent; border: 2px dashed #2a2a2a; border-radius: 16px; padding: 18px; color: #38bdf8; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-
-        /* Paste panel */
-        .paste-panel { background: #1c1c1c; border-radius: 16px; padding: 16px; margin-bottom: 14px; border: 1px solid #2a2a2a; }
-        .paste-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-        .paste-panel-title { font-size: 14px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.5px; }
-        .info-dot { background: #2a2a2a; border: 1px solid #444; color: #38bdf8; border-radius: 50%; width: 26px; height: 26px; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .format-note { background: #0e1c24; border: 1px solid #1e3a4a; border-radius: 10px; padding: 12px; margin-bottom: 12px; font-size: 12px; color: #7aabbb; line-height: 1.7; }
-        .format-note code { background: #162533; color: #38bdf8; padding: 1px 5px; border-radius: 4px; font-size: 11px; }
-        .paste-textarea { width: 100%; background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 10px; color: white; padding: 12px; font-size: 14px; font-family: monospace; resize: vertical; outline: none; min-height: 80px; box-sizing: border-box; line-height: 1.5; }
-        .paste-textarea::placeholder { color: #3a3a3a; }
-        .btn-import-paste { width: 100%; background: #38bdf8; color: black; border: none; border-radius: 12px; padding: 13px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 10px; font-size: 14px; }
-        .back-to-routines { display: block; text-align: center; color: #555; font-size: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-top: 16px; padding: 8px; }
-
-        /* Storage warning + backup */
-        .storage-warn { background: #2a1010; border: 1px solid #7f1d1d; color: #fca5a5; border-radius: 12px; padding: 12px; font-size: 13px; line-height: 1.5; margin-bottom: 14px; }
-        .backup-row { display: flex; gap: 8px; margin-top: 10px; }
-        .backup-row button { flex: 1; background: #252525; color: #ddd; border: 1px solid #333; border-radius: 12px; padding: 12px; font-weight: 800; font-size: 12px; cursor: pointer; text-transform: uppercase; }
-
-        .hidden { display: none !important; }
-    </style>
+    <title>ProFit Elite</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ProFit">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- MAIN MENU — UNCHANGED -->
+<!-- MAIN MENU -->
 <div class="container" id="menu-screen">
     <h1>ProFit <span style="color:#38bdf8">Elite</span></h1>
     <div onclick="showScreen('builder-screen')" class="menu-item"><h3>1. Make My Own Routine</h3><p>Custom list with unique times</p></div>
     <div onclick="showScreen('hiit-screen')" class="menu-item"><h3>2. HIIT / Gym Mode</h3><p>Standard repeating intervals</p></div>
     <div onclick="showScreen('muscle-screen')" class="menu-item"><h3>3. Muscle Rest Timer</h3><p>Scientific recovery</p></div>
+    <div onclick="showScreen('settings-screen')" class="menu-item"><h3>⚙ Settings</h3><p>Backup, restore, account &amp; data</p></div>
 </div>
 
 <!-- BUILDER SCREEN -->
@@ -87,7 +36,7 @@
     <div id="builder-landing">
         <div id="storage-warn" class="storage-warn hidden"></div>
         <div id="saved-routines-list"></div>
-        <div class="section-divider" id="or-divider">— OR CREATE NEW —</div>
+        <div class="section-divider">— OR CREATE NEW —</div>
         <button class="btn-create-new" onclick="showCreatePanel()">＋ Create New List</button>
 
         <div id="create-panel" class="hidden">
@@ -134,28 +83,7 @@
 
         </div>
 
-        <!-- Backup / restore -->
-        <div class="section-divider">— BACKUP —</div>
-        <div class="paste-panel">
-            <div class="paste-panel-header">
-                <span class="paste-panel-title">Backup &amp; Restore</span>
-                <button class="info-dot" onclick="toggleNote('format-note-backup')">?</button>
-            </div>
-            <div id="format-note-backup" class="format-note hidden">
-                Routines are stored only in this browser. Safari can wipe them if the site is not opened for ~7 days.<br><br>
-                <strong style="color:white">Export</strong> saves a backup file (save it to Files / iCloud Drive / Google Drive, or send it to yourself).<br>
-                <strong style="color:white">Copy</strong> copies the backup as text (paste it in Notes or email).<br>
-                <strong style="color:white">Restore</strong> loads a backup file, or paste backup text below and tap Restore.
-            </div>
-            <div class="backup-row">
-                <button onclick="exportBackup()">⬇ Export</button>
-                <button onclick="copyBackup()">⧉ Copy</button>
-                <button onclick="restoreBackup()">⬆ Restore</button>
-            </div>
-            <textarea class="paste-textarea" id="restore-text" rows="2" style="margin-top:10px;"
-                placeholder="(Optional) paste backup text here, then tap Restore"></textarea>
-            <input type="file" id="restore-file" accept=".json,application/json,text/plain" class="hidden" onchange="restoreFromFile(this)">
-        </div>
+        <button class="link-btn" onclick="showScreen('settings-screen')">Backup &amp; Restore →</button>
     </div>
 
     <!-- EDIT VIEW: shown after tapping "Edit List" -->
@@ -169,7 +97,29 @@
         </div>
 
         <div id="builder-list"></div>
-        <div class="tap-finish" style="padding:10px; border-style:dotted; margin-bottom:15px;" onclick="addExRow()"><span>+ ADD EXERCISE</span></div>
+        <div class="tap-finish" style="padding:10px; border-style:dotted; margin-bottom:15px;" onclick="addExRow(); updateDurationPanel();"><span>+ ADD EXERCISE</span></div>
+
+        <!-- Workout duration / time scaling -->
+        <div class="duration-panel" id="duration-panel">
+            <div class="paste-panel-header">
+                <span class="paste-panel-title">Workout Duration</span>
+                <button class="info-dot" onclick="toggleNote('format-note-scale')">?</button>
+            </div>
+            <div id="format-note-scale" class="format-note hidden">
+                Pick a percentage to finish the whole routine faster (or slower).<br><br>
+                Example: a 60-minute routine at <strong style="color:white">75%</strong> finishes in <strong style="color:white">45 minutes</strong>. Every work and rest time is shortened by the same proportion; the 5-second "get ready" stays the same.<br><br>
+                Your saved times are not changed — pick 100% to go back.
+            </div>
+            <div class="duration-row"><span>Full routine</span><strong id="dur-full">00:00</strong></div>
+            <div class="duration-row"><span>This workout</span><span class="scaled" id="dur-scaled">00:00</span></div>
+            <div class="scale-chips" id="scale-chips"></div>
+            <div class="scale-custom">
+                <span>Custom</span>
+                <input type="number" id="scale-custom" min="10" max="200" step="1" placeholder="%" onchange="setScale(this.value)">
+                <span>%</span>
+            </div>
+            <div class="duration-note" id="dur-note"></div>
+        </div>
 
         <!-- Paste more inside edit -->
         <div class="paste-panel" style="margin-bottom:15px;">
@@ -195,7 +145,7 @@
     </div>
 </div>
 
-<!-- MUSCLE & HIIT — UNCHANGED -->
+<!-- MUSCLE -->
 <div class="container hidden" id="muscle-screen">
     <div class="header-row"><a class="back-arrow" onclick="showScreen('menu-screen')">←</a><div class="screen-title">MUSCLE TIMER</div></div>
     <div class="input-row"><label>Training type</label><select id="m-type"><option>Hypertrophy - Size & Strength</option><option>Exhaust - Lean Muscle & Burn</option></select></div>
@@ -205,6 +155,7 @@
     <button class="btn-blue" onclick="startWorkout('muscle')">START SESSION</button>
 </div>
 
+<!-- HIIT -->
 <div class="container hidden" id="hiit-screen">
     <div class="header-row"><a class="back-arrow" onclick="showScreen('menu-screen')">←</a><div class="screen-title">HIIT SETTINGS</div></div>
     <div class="input-row"><label>Work Duration (s)</label><input type="number" id="h-work" value="40"></div>
@@ -214,9 +165,57 @@
     <button class="btn-blue" onclick="startWorkout('hiit')">START HIIT</button>
 </div>
 
-<!-- TIMER — UNCHANGED -->
+<!-- SETTINGS -->
+<div class="container hidden" id="settings-screen">
+    <div class="header-row"><a class="back-arrow" onclick="showScreen('menu-screen')">←</a><div class="screen-title">SETTINGS</div></div>
+
+    <div class="settings-section">
+        <h4>Account</h4>
+        <p>Not signed in. Your routines are stored on this device only.<br>Sign-in with cloud sync is coming soon.</p>
+    </div>
+
+    <div class="settings-section">
+        <h4>Plan</h4>
+        <p id="plan-status"></p>
+    </div>
+
+    <!-- Backup / restore -->
+    <div class="paste-panel">
+        <div class="paste-panel-header">
+            <span class="paste-panel-title">Backup &amp; Restore</span>
+            <button class="info-dot" onclick="toggleNote('format-note-backup')">?</button>
+        </div>
+        <div id="format-note-backup" class="format-note hidden">
+            Routines are stored only in this browser. Safari can wipe them if the site is not opened for ~7 days.<br><br>
+            <strong style="color:white">Export</strong> saves a backup file (save it to Files / iCloud Drive / Google Drive, or send it to yourself).<br>
+            <strong style="color:white">Copy</strong> copies the backup as text (paste it in Notes or email).<br>
+            <strong style="color:white">Restore</strong> loads a backup file, or paste backup text below and tap Restore.
+        </div>
+        <div class="backup-row">
+            <button onclick="exportBackup()">⬇ Export</button>
+            <button onclick="copyBackup()">⧉ Copy</button>
+            <button onclick="restoreBackup()">⬆ Restore</button>
+        </div>
+        <textarea class="paste-textarea" id="restore-text" rows="2" style="margin-top:10px;"
+            placeholder="(Optional) paste backup text here, then tap Restore"></textarea>
+        <input type="file" id="restore-file" accept=".json,application/json,text/plain" class="hidden" onchange="restoreFromFile(this)">
+    </div>
+
+    <div class="settings-section">
+        <h4>Privacy &amp; Data</h4>
+        <p id="storage-status"></p>
+        <button class="btn-danger" onclick="deleteAllData()">Delete all my data</button>
+    </div>
+
+    <div class="settings-section">
+        <h4>About</h4>
+        <p>ProFit Elite <span id="app-version"></span></p>
+    </div>
+</div>
+
+<!-- TIMER -->
 <div class="container hidden" id="timer-active" style="padding-top: 30px;">
-    <div id="total-clock">TOTAL TIME LEFT: 00:00</div>
+    <div id="total-clock"><span class="tl-label">Total time left</span><span class="tl-value">00:00</span></div>
     <div class="set-indicator" id="set-num">SET 1</div>
     <div class="big-go" id="display">GO</div>
     <div id="ex-display" style="color: #555; font-size: 14px; margin-bottom: 20px; text-align: center;">EXERCISE</div>
@@ -230,539 +229,13 @@
     </div>
 </div>
 
-<script>
-    const synth = window.speechSynthesis;
-    const SKIP_WAIT_SECONDS = 5;
-    let queue = [], qIdx = 0, timeLeft = 0, totalTimeSec = 0, timer = null, paused = false;
-    /* ── Safe storage ── */
-    const SAVE_KEY = 'profit_v8_save', ACTIVE_KEY = 'profit_v8_active';
-    function storeGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
-    function storeSet(key, val) { try { localStorage.setItem(key, val); return true; } catch (e) { return false; } }
-    function storageWorks() {
-        const k = '__profit_test__';
-        if (!storeSet(k, '1')) return false;
-        const ok = storeGet(k) === '1';
-        try { localStorage.removeItem(k); } catch (e) {}
-        return ok;
-    }
-    function loadRoutines() {
-        try {
-            const data = JSON.parse(storeGet(SAVE_KEY) || '{}');
-            return (data && typeof data === 'object' && !Array.isArray(data)) ? data : {};
-        } catch (e) { return {}; }
-    }
-    const STORAGE_OK = storageWorks();
-    // Ask the browser not to auto-evict our data (Chrome/Android honour this; Safari mostly ignores it).
-    if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
-
-    let routines = loadRoutines();
-    let activeRoutineName = storeGet(ACTIVE_KEY) || '';
-
-    if (Object.keys(routines).length === 0) { routines["My Routine"] = []; activeRoutineName = "My Routine"; }
-    if (!activeRoutineName || !routines[activeRoutineName]) activeRoutineName = Object.keys(routines)[0];
-
-    Sortable.create(document.getElementById('builder-list'), { animation: 150, handle: '.drag-handle' });
-    Sortable.create(document.getElementById('new-routine-list'), { animation: 150, handle: '.drag-handle' });
-
-    /* ── Screen nav ── */
-    function showScreen(id) {
-        document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
-        document.getElementById(id).classList.remove('hidden');
-        if (id === 'builder-screen') showLanding();
-    }
-
-    /* ── Builder: landing vs edit ── */
-    function showLanding() {
-        const warn = document.getElementById('storage-warn');
-        if (!STORAGE_OK) {
-            warn.innerHTML = '<strong>⚠ This browser is not saving data.</strong><br>Routines will be lost when you close the page. ' +
-                'Turn off Private Browsing, or in iPhone Settings → Safari turn off "Block All Cookies". Use Export below to keep a copy.';
-            warn.classList.remove('hidden');
-        } else warn.classList.add('hidden');
-        document.getElementById('builder-landing').classList.remove('hidden');
-        document.getElementById('builder-edit').classList.add('hidden');
-        renderSavedRoutines();
-    }
-
-    function showEdit() {
-        document.getElementById('builder-landing').classList.add('hidden');
-        document.getElementById('builder-edit').classList.remove('hidden');
-        populateRoutineSelect();
-        loadBuilderList();
-    }
-
-    function showCreatePanel() {
-        document.getElementById('create-panel').classList.toggle('hidden');
-    }
-
-    function renderSavedRoutines() {
-        const el = document.getElementById('saved-routines-list');
-        const names = Object.keys(routines).filter(n => routines[n] && routines[n].length > 0);
-        const allNames = Object.keys(routines);
-
-        if (allNames.length === 0) { el.innerHTML = ''; return; }
-
-        el.innerHTML = allNames.map(name => {
-            const count = (routines[name] || []).length;
-            const meta = count ? `${count} exercise${count !== 1 ? 's' : ''}` : 'Empty — edit to add exercises';
-            const safe = name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-            return `<div class="saved-routine-card">
-                <div class="rname">${htmlEsc(name)}</div>
-                <div class="rmeta">${meta}</div>
-                <div class="rbtns">
-                    ${count ? `<button class="btn-start-r" onclick="loadAndStart('${safe}')">&#9654; START</button>` : ''}
-                    <button class="btn-edit-r" onclick="openEdit('${safe}')">${count ? 'EDIT LIST' : 'ADD EXERCISES'}</button>
-                </div>
-            </div>`;
-        }).join('');
-    }
-
-    function htmlEsc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-    function loadAndStart(name) {
-        activeRoutineName = name;
-        storeSet(ACTIVE_KEY, name);
-        const stored = routines[name] || [];
-        if (!stored.length) { alert('This routine is empty. Add exercises first.'); return; }
-        buildBuilderQueue(stored);
-        runEngine();
-    }
-
-    function openEdit(name) {
-        activeRoutineName = name;
-        storeSet(ACTIVE_KEY, name);
-        showEdit();
-    }
-
-    /* ── Format note toggle ── */
-    function toggleNote(id) {
-        document.getElementById(id).classList.toggle('hidden');
-    }
-
-    /* ── CSV parser ── */
-    function parseCSVRows(text) {
-        const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').map(l=>l.trim()).filter(l=>l);
-        const result = [];
-        for (const line of lines) {
-            let parts;
-            if (line.includes('\t')) parts = line.split('\t').map(p=>p.trim().replace(/^["']|["']$/g,''));
-            else parts = line.split(',').map(p=>p.trim().replace(/^["']|["']$/g,''));
-            if (parts.length < 2) continue;
-            if (['exercise_name','exercise','name'].includes(parts[0].toLowerCase())) continue;
-            result.push({
-                n:  parts[0] || 'Exercise',
-                w:  isNaN(parseInt(parts[1])) ? 30 : parseInt(parts[1]),
-                r:  isNaN(parseInt(parts[2])) ? 15 : parseInt(parts[2]),
-                rd: isNaN(parseInt(parts[3])) ?  1 : parseInt(parts[3])
-            });
-        }
-        return result;
-    }
-
-    /* ── Create panel tabs ── */
-    function switchCreateTab(tab) {
-        const isPaste = tab === 'paste';
-        document.getElementById('tab-paste').classList.toggle('hidden', !isPaste);
-        document.getElementById('tab-manual').classList.toggle('hidden', isPaste);
-        document.getElementById('tab-paste-btn').style.cssText = isPaste
-            ? 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#38bdf8;color:#000;border:none;'
-            : 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#252525;color:#888;border:1px solid #333;';
-        document.getElementById('tab-manual-btn').style.cssText = !isPaste
-            ? 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#38bdf8;color:#000;border:none;'
-            : 'flex:1;padding:11px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;background:#252525;color:#888;border:1px solid #333;';
-        // Seed one blank row when switching to manual if empty
-        if (!isPaste && !document.getElementById('new-routine-list').children.length) addNewExRow();
-    }
-
-    function addNewExRow(data = null) {
-        const div = document.createElement('div');
-        div.className = 'ex-card';
-        const n = data ? data.n.replace(/"/g,'&quot;') : '';
-        div.innerHTML = `<div class="drag-handle">⠿</div>
-            <span onclick="this.parentElement.remove()" style="position:absolute;right:15px;top:15px;color:#ef4444;cursor:pointer;font-size:20px;">✕</span>
-            <input type="text" class="name-in" placeholder="Exercise Name" value="${n}"
-                style="background:transparent;border:none;border-bottom:1px solid #333;color:white;font-size:16px;width:80%;margin-left:22px;">
-            <div class="card-grid" style="margin-left:22px;">
-                <div class="grid-item"><label>Work(s)</label><input type="number" class="w-in" value="${data?data.w:30}"></div>
-                <div class="grid-item"><label>Rest(s)</label><input type="number" class="r-in" value="${data?data.r:15}"></div>
-                <div class="grid-item"><label>Round</label><input type="number" class="rd-in" value="${data?data.rd:1}"></div>
-            </div>`;
-        document.getElementById('new-routine-list').appendChild(div);
-    }
-
-    function createFromManual() {
-        const cards = [...document.querySelectorAll('#new-routine-list .ex-card')];
-        if (!cards.length) { alert('Add at least one exercise.'); return; }
-        let name = prompt('Name this routine:', 'My Routine');
-        if (!name || !name.trim()) return;
-        name = name.trim();
-        if (routines[name] && !confirm(`"${name}" already exists. Replace its content?`)) return;
-        routines[name] = cards.map(c => ({
-            n:  c.querySelector('.name-in').value.trim() || 'Exercise',
-            w:  parseInt(c.querySelector('.w-in').value)  || 30,
-            r:  parseInt(c.querySelector('.r-in').value)  || 15,
-            rd: parseInt(c.querySelector('.rd-in').value) || 1
-        }));
-        activeRoutineName = name;
-        saveToStorage();
-        document.getElementById('new-routine-list').innerHTML = '';
-        document.getElementById('create-panel').classList.add('hidden');
-        showEdit();
-    }
-
-    /* ── Create new routine from paste (landing) ── */
-    function createFromPaste() {
-        const text = document.getElementById('paste-landing').value.trim();
-        if (!text) { alert('Please paste exercise data first.'); return; }
-        const exercises = parseCSVRows(text);
-        if (!exercises.length) { alert('No valid exercises found. Check the format.'); return; }
-        let name = prompt('Name this routine:', 'My Routine');
-        if (!name || !name.trim()) return;
-        name = name.trim();
-        if (routines[name] && !confirm(`"${name}" already exists. Replace its content?`)) return;
-        routines[name] = exercises;
-        activeRoutineName = name;
-        saveToStorage();
-        document.getElementById('paste-landing').value = '';
-        document.getElementById('create-panel').classList.add('hidden');
-        showEdit();
-    }
-
-    /* ── Import more inside edit ── */
-    function importIntoEdit() {
-        const text = document.getElementById('paste-edit').value.trim();
-        if (!text) { alert('Please paste exercise data first.'); return; }
-        const exercises = parseCSVRows(text);
-        if (!exercises.length) { alert('No valid exercises found.'); return; }
-        exercises.forEach(ex => addExRow(ex));
-        document.getElementById('paste-edit').value = '';
-    }
-
-    /* ── Routine management ── */
-    function populateRoutineSelect() {
-        const sel = document.getElementById('routine-select');
-        sel.innerHTML = '';
-        Object.keys(routines).forEach(name => {
-            const opt = document.createElement('option');
-            opt.value = name; opt.textContent = name;
-            if (name === activeRoutineName) opt.selected = true;
-            sel.appendChild(opt);
-        });
-    }
-
-    function switchRoutine() {
-        activeRoutineName = document.getElementById('routine-select').value;
-        storeSet(ACTIVE_KEY, activeRoutineName);
-        loadBuilderList();
-    }
-
-    function renameRoutinePrompt() {
-        const newName = prompt('Rename to:', activeRoutineName);
-        if (!newName || !newName.trim() || newName.trim() === activeRoutineName) return;
-        const trimmed = newName.trim();
-        if (routines[trimmed]) { alert('A routine with that name already exists.'); return; }
-        routines[trimmed] = routines[activeRoutineName];
-        delete routines[activeRoutineName];
-        activeRoutineName = trimmed;
-        saveToStorage();
-        populateRoutineSelect();
-    }
-
-    function deleteRoutinePrompt() {
-        if (Object.keys(routines).length <= 1) { alert('Cannot delete the only routine.'); return; }
-        if (!confirm(`Delete "${activeRoutineName}"?`)) return;
-        delete routines[activeRoutineName];
-        activeRoutineName = Object.keys(routines)[0];
-        saveToStorage();
-        showLanding();
-    }
-
-    /* ── Builder list ── */
-    function addExRow(data = null) {
-        const div = document.createElement('div');
-        div.className = 'ex-card';
-        const n = data ? data.n.replace(/"/g,'&quot;') : '';
-        div.innerHTML = `<div class="drag-handle">⠿</div>
-            <span onclick="this.parentElement.remove()" style="position:absolute;right:15px;top:15px;color:#ef4444;cursor:pointer;font-size:20px;">✕</span>
-            <input type="text" class="name-in" placeholder="Exercise Name" value="${n}"
-                style="background:transparent;border:none;border-bottom:1px solid #333;color:white;font-size:16px;width:80%;margin-left:22px;">
-            <div class="card-grid" style="margin-left:22px;">
-                <div class="grid-item"><label>Work(s)</label><input type="number" class="w-in" value="${data?data.w:30}"></div>
-                <div class="grid-item"><label>Rest(s)</label><input type="number" class="r-in" value="${data?data.r:15}"></div>
-                <div class="grid-item"><label>Round</label><input type="number" class="rd-in" value="${data?data.rd:1}"></div>
-            </div>`;
-        document.getElementById('builder-list').appendChild(div);
-    }
-
-    function loadBuilderList() {
-        const list = document.getElementById('builder-list');
-        list.innerHTML = '';
-        (routines[activeRoutineName] || []).forEach(d => addExRow(d));
-        if (!list.children.length) addExRow();
-    }
-
-    function saveCurrentRoutine() {
-        const cards = [...document.querySelectorAll('#builder-list .ex-card')];
-        routines[activeRoutineName] = cards.map(c => ({
-            n:  c.querySelector('.name-in').value.trim() || 'Exercise',
-            w:  parseInt(c.querySelector('.w-in').value)  || 30,
-            r:  parseInt(c.querySelector('.r-in').value)  || 15,
-            rd: parseInt(c.querySelector('.rd-in').value) || 1
-        }));
-        if (saveToStorage()) alert('Routine Saved!');
-    }
-
-    function saveToStorage() {
-        const json = JSON.stringify(routines);
-        const ok = storeSet(SAVE_KEY, json) && storeSet(ACTIVE_KEY, activeRoutineName) && storeGet(SAVE_KEY) === json;
-        if (!ok) alert('⚠ Could not save on this device.\n\nPrivate Browsing or "Block All Cookies" may be on, or storage is full. ' +
-            'Your changes will be lost when you close the page — use Backup → Export to keep a copy.');
-        return ok;
-    }
-
-    /* ── Backup / restore ── */
-    function backupText() {
-        return JSON.stringify({ app: 'ProFit Elite', version: 1, exported: new Date().toISOString(), routines }, null, 1);
-    }
-
-    async function exportBackup() {
-        const text = backupText();
-        const fileName = `profit-routines-${new Date().toISOString().slice(0,10)}.json`;
-        const file = new File([text], fileName, { type: 'application/json' });
-        // iPhone/Android: share sheet lets you save to Files, iCloud, Drive, mail, WhatsApp…
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try { await navigator.share({ files: [file], title: 'ProFit routines backup' }); return; }
-            catch (e) { if (e.name === 'AbortError') return; }
-        }
-        const url = URL.createObjectURL(file);
-        const a = document.createElement('a');
-        a.href = url; a.download = fileName;
-        document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }
-
-    async function copyBackup() {
-        const text = backupText();
-        try { await navigator.clipboard.writeText(text); alert('Backup copied. Paste it into Notes or an email to keep it safe.'); }
-        catch (e) {
-            const ta = document.getElementById('restore-text');
-            ta.value = text; ta.select();
-            alert('Could not copy automatically. The backup text is in the box — select it and copy manually.');
-        }
-    }
-
-    function restoreBackup() {
-        const text = document.getElementById('restore-text').value.trim();
-        if (text) applyBackup(text);
-        else document.getElementById('restore-file').click();
-    }
-
-    function restoreFromFile(input) {
-        const f = input.files && input.files[0];
-        input.value = '';
-        if (!f) return;
-        f.text().then(applyBackup).catch(() => alert('Could not read that file.'));
-    }
-
-    function applyBackup(text) {
-        let data;
-        try { data = JSON.parse(text); } catch (e) { alert('That is not a valid backup.'); return; }
-        const incoming = data && typeof data.routines === 'object' ? data.routines : data;
-        if (!incoming || typeof incoming !== 'object' || Array.isArray(incoming)) { alert('That is not a valid backup.'); return; }
-        const clean = {};
-        for (const [name, list] of Object.entries(incoming)) {
-            if (!Array.isArray(list)) continue;
-            clean[name] = list.filter(x => x && typeof x === 'object').map(x => ({
-                n:  String(x.n || 'Exercise'),
-                w:  parseInt(x.w)  || 30,
-                r:  parseInt(x.r)  || 15,
-                rd: parseInt(x.rd) || 1
-            }));
-        }
-        const names = Object.keys(clean);
-        if (!names.length) { alert('No routines found in that backup.'); return; }
-        const clashes = names.filter(n => routines[n] && routines[n].length);
-        if (clashes.length && !confirm(`Restore ${names.length} routine(s)?\n\nThese will be replaced: ${clashes.join(', ')}`)) return;
-        // Drop the empty placeholder routine if it's the only thing here
-        if (Object.keys(routines).length === 1 && routines['My Routine'] && !routines['My Routine'].length) delete routines['My Routine'];
-        Object.assign(routines, clean);
-        if (!routines[activeRoutineName]) activeRoutineName = names[0];
-        document.getElementById('restore-text').value = '';
-        if (saveToStorage()) alert(`Restored ${names.length} routine(s).`);
-        showLanding();
-    }
-
-    /* ── Speech ── */
-    function speak(t) { synth.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang='en-IN'; u.rate=0.95; synth.speak(u); }
-
-    /* ══════════════════════════════════════════
-       QUEUE BUILDER — speech changes applied here
-       ══════════════════════════════════════════ */
-    function buildBuilderQueue(exList) {
-        queue = []; totalTimeSec = 0;
-        exList.forEach((ex, idx) => {
-            const n  = ex.n  || `Exercise ${idx+1}`;
-            const w  = parseInt(ex.w)  || 30;
-            const r  = parseInt(ex.r)  || 15;
-            const rd = parseInt(ex.rd) || 1;
-
-            for (let i = 1; i <= rd; i++) {
-                // Prepare only before first ever exercise
-                if (idx === 0 && i === 1) {
-                    queue.push({ d: n, s: 'PREPARE', v: `Next we will do ${n}. Get ready.`, t: 5 });
-                    totalTimeSec += 5;
-                }
-
-                // Work phase: say "Now start" instead of "Go"
-                queue.push({ d: n, s: `SET ${i}`, v: `Now start`, t: w });
-                totalTimeSec += w;
-
-                // Figure out what comes after this rest
-                let nextName = null, nextSet = null;
-                if (i < rd) { nextName = n; nextSet = i + 1; }
-                else if (exList[idx + 1]) { nextName = exList[idx + 1].n || `Exercise ${idx+2}`; nextSet = 1; }
-
-                // Rest voice: "Ok. Next we will do X set N. We'll start in R seconds."
-                const restVoice = nextName
-                    ? `Ok. Next we will do ${nextName} set ${nextSet}. We'll start in ${r} seconds.`
-                    : `Ok. All done. Great work.`;
-
-                queue.push({ d: 'REST', s: 'REST', v: restVoice, t: r });
-                totalTimeSec += r;
-            }
-        });
-    }
-
-    function startWorkout(mode) {
-        queue = []; totalTimeSec = 0;
-
-        if (mode === 'builder') {
-            const cards = [...document.querySelectorAll('.ex-card')];
-            if (!cards.length) { alert('No exercises in the list.'); return; }
-            const exList = cards.map((c, idx) => ({
-                n:  c.querySelector('.name-in').value.trim() || `Exercise ${idx+1}`,
-                w:  c.querySelector('.w-in').value,
-                r:  c.querySelector('.r-in').value,
-                rd: c.querySelector('.rd-in').value
-            }));
-            buildBuilderQueue(exList);
-
-        } else if (mode === 'hiit') {
-            const w=parseInt(document.getElementById('h-work').value), r=parseInt(document.getElementById('h-rest').value);
-            const ex=parseInt(document.getElementById('h-ex').value), rds=parseInt(document.getElementById('h-rounds').value);
-            for (let j=1; j<=rds; j++) {
-                for (let i=1; i<=ex; i++) {
-                    if (j===1&&i===1) { queue.push({d:`Exercise 1`,s:'PREPARE',v:`Starting HIIT. Get ready.`,t:5}); totalTimeSec+=5; }
-                    queue.push({d:`Exercise ${i}`,s:`ROUND ${j}`,v:`Now start`,t:w}); totalTimeSec+=w;
-                    let rv = (i<ex) ? `Ok. Next is Exercise ${i+1}. We'll start in ${r} seconds.`
-                           : (j<rds) ? `Ok. Round ${j+1} coming up. We'll start in ${r} seconds.`
-                           : `Ok. Workout complete.`;
-                    queue.push({d:'REST',s:'REST',v:rv,t:r}); totalTimeSec+=r;
-                }
-            }
-
-        } else if (mode === 'muscle') {
-            const sets=parseInt(document.getElementById('m-sets').value), m=document.getElementById('m-muscle').value;
-            for (let i=1; i<=sets; i++) {
-                if (i===1) { queue.push({d:m,s:'PREPARE',v:`Next we will do ${m}. Get ready.`,t:5}); totalTimeSec+=5; }
-                queue.push({d:m,s:`SET ${i}`,v:`Now start`,t:0});
-                const rv = (i<sets) ? `Ok. Set ${i+1} coming up. We'll start in 90 seconds.` : `Ok. All sets done.`;
-                queue.push({d:'REST',s:'REST',v:rv,t:90}); totalTimeSec+=90;
-            }
-        }
-
-        runEngine();
-    }
-
-    /* ── Timer engine ── */
-    function updateTotalClock() {
-        const m=Math.floor(totalTimeSec/60), s=totalTimeSec%60;
-        document.getElementById('total-clock').innerText=`TOTAL TIME LEFT: ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    }
-
-    function advanceQueue() {
-        qIdx++;
-        if (qIdx < queue.length) {
-            const cur = queue[qIdx];
-            document.getElementById('set-num').innerText = cur.s;
-            document.getElementById('ex-display').innerText = cur.d;
-            speak(cur.v);
-            if (cur.t === 0) {
-                document.getElementById('display').innerText = 'GO';
-                document.getElementById('manual-trigger').onclick = () => { timeLeft = 0; };
-            } else { timeLeft = cur.t; }
-            updateTotalClock();
-        } else {
-            clearInterval(timer);
-            document.getElementById('total-clock').innerText = 'WORKOUT COMPLETE';
-            speak('Workout complete. Well done!');
-            setTimeout(() => location.reload(), 2000);
-        }
-    }
-
-    function timerTick() {
-        if (timeLeft > 0) {
-            document.getElementById('display').innerText = timeLeft;
-            if (timeLeft <= 3) speak(String(timeLeft));
-            timeLeft--;
-            if (totalTimeSec > 0) totalTimeSec--;
-            updateTotalClock();
-        } else { advanceQueue(); }
-    }
-
-    function runEngine() {
-        showScreen('timer-active');
-        qIdx = 0; timeLeft = queue[0].t; paused = false;
-        document.getElementById('pause-btn').innerText = 'PAUSE';
-        updateTotalClock();
-        speak(queue[0].v);
-        if (timer) clearInterval(timer);
-        timer = setInterval(timerTick, 1000);
-    }
-
-    function togglePause() {
-        if (paused) {
-            paused = false; timer = setInterval(timerTick, 1000);
-            document.getElementById('pause-btn').innerText = 'PAUSE';
-        } else {
-            paused = true; clearInterval(timer); timer = null;
-            document.getElementById('pause-btn').innerText = 'RESUME';
-            synth.cancel();
-        }
-    }
-
-    function skipExercise() {
-        let currentExName = '';
-        for (let i=qIdx; i>=0; i--) { if (queue[i].d !== 'REST') { currentExName = queue[i].d; break; } }
-        totalTimeSec -= timeLeft;
-        let nextIdx = qIdx + 1;
-        while (nextIdx < queue.length) {
-            if (queue[nextIdx].d !== 'REST' && queue[nextIdx].d !== currentExName) break;
-            totalTimeSec -= queue[nextIdx].t;
-            nextIdx++;
-        }
-        if (totalTimeSec < 0) totalTimeSec = 0;
-        if (nextIdx < queue.length) {
-            const nextExName = queue[nextIdx].d;
-            const prepItem = { d:nextExName, s:'PREPARE', v:`Next we will do ${nextExName} set 1. We'll start in ${SKIP_WAIT_SECONDS} seconds.`, t:SKIP_WAIT_SECONDS };
-            queue.splice(nextIdx, 0, prepItem);
-            totalTimeSec += SKIP_WAIT_SECONDS;
-            qIdx = nextIdx;
-            const cur = queue[qIdx];
-            timeLeft = cur.t;
-            document.getElementById('set-num').innerText = cur.s;
-            document.getElementById('ex-display').innerText = cur.d;
-            document.getElementById('display').innerText = cur.t;
-            speak(cur.v);
-            updateTotalClock();
-            if (paused) { paused=false; timer=setInterval(timerTick,1000); document.getElementById('pause-btn').innerText='PAUSE'; }
-        } else {
-            clearInterval(timer);
-            document.getElementById('total-clock').innerText = 'WORKOUT COMPLETE';
-            speak('Workout complete. Well done!');
-            setTimeout(() => location.reload(), 2000);
-        }
-    }
-</script>
+<script src="vendor/Sortable.min.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/plan.js"></script>
+<script src="js/timescale.js"></script>
+<script src="js/routines.js"></script>
+<script src="js/backup.js"></script>
+<script src="js/workout.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
